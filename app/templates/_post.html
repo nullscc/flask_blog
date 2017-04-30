@@ -1,0 +1,37 @@
+<div class="post-head">
+    <h1>
+    <a href="{{ url_for('main.index')+posts[0].permalink}}">{{ posts[0].title }}</a>
+    </h1>
+    <p>
+        <!--文章创建时间-->
+        <span class="glyphicon glyphicon-calendar"></span>
+        <span>{{ moment(posts[0].timestamp).format('YYYY/MM/DD') }}&nbsp;&nbsp;</span>
+
+        <span class="glyphicon glyphicon-tag"></span>
+        <span><a href="{{ url_for('main.index')}}">{{ posts[0].tag.name }}&nbsp;&nbsp;</a></span>
+
+        <span class="glyphicon glyphicon-comment"></span>
+        <a href="{{ url_for('main.index') }}#comments">
+            <span class="ds-thread-count" data-thread-key="{{ posts[0].id }}" data-count-type="comments"></span>
+            评论&nbsp;&nbsp;
+        </a>
+
+        {% if current_user.is_administrator() %}
+        <span class="glyphicon glyphicon-trash"></span>
+        <a href="{{ url_for('main.index') }}">
+            <span>删除&nbsp;&nbsp;</span>
+        </a>
+        <span class="glyphicon glyphicon-edit"></span>
+        <a href="{{ url_for('main.index') }}">
+            <span>编辑</span>
+        </a>
+        {% endif %}
+    </p>
+</div>
+<div class="post-body">
+    {% if posts[0].body_html %}
+        {{ posts[0].body_html | safe }}
+    {% else %}
+        {{ posts[0].body }}
+    {% endif %}
+</div>

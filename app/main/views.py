@@ -25,6 +25,27 @@ def index():
     posts = pagination.items
     return render_template('index.html', posts=posts, pagination=pagination)
 
+@main.route('/<permalink>', methods=['GET', 'POST'])
+def post(permalink):
+    post = Post.query.filter_by(permalink=permalink).first()
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data,
+                          post=post)
+        db.session.add(comment)
+        flash(u'您的评论已被发表')
+        return redirect(url_for('.post', permalink=permalink))
+    page = request.args.get('page', 1, type=int)
+    if page == -1:
+        page = (post.comments.count() - 1) // \
+            current_app.config['FLASKY_COMMENTS_PER_PAGE'] + 1
+    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
+        page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'],
+        error_out=False)
+    comments = pagination.items
+    return render_template('post.html', posts=[post], form=form,
+                           comments=comments, pagination=pagination)
+
 @main.route('/new-post', methods=['GET', 'POST'])
 def new_post():
     form = PostForm()
@@ -36,27 +57,6 @@ def new_post():
         flash(u'发布文章成功！！！')
         return redirect(url_for('.index'))
     return render_template('new_post.html', form=form)
-
-@main.route('/post/<int:id>', methods=['GET', 'POST'])
-def post(id):
-    post = Post.query.get_or_404(id)
-    form = CommentForm()
-    if form.validate_on_submit():
-        comment = Comment(body=form.body.data,
-                          post=post)
-        db.session.add(comment)
-        flash('Your comment has been published.')
-        return redirect(url_for('.post', id=post.id, page=-1))
-    page = request.args.get('page', 1, type=int)
-    if page == -1:
-        page = (post.comments.count() - 1) // \
-            current_app.config['FLASKY_COMMENTS_PER_PAGE'] + 1
-    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
-        page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'],
-        error_out=False)
-    comments = pagination.items
-    return render_template('post.html', posts=[post], form=form,
-                           comments=comments, pagination=pagination)
 
 @main.route('/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
