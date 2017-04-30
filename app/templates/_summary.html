@@ -1,34 +1,5 @@
 <div class="post-summary">
-        <div class="post-head">
-            <h1>
-            <a href="{{ url_for('main.index')+post.permalink}}">{{ post.title }}</a>
-            </h1>
-            <p>
-                <!--文章创建时间-->
-                <span class="glyphicon glyphicon-calendar"></span>
-                <span>{{ moment(post.timestamp).format('YYYY/MM/DD') }}&nbsp;&nbsp;</span>
-
-                <span class="glyphicon glyphicon-tag"></span>
-                <span><a href="{{ url_for('main.index', name=post.tag.name) }}">{{ post.tag.name }}&nbsp;&nbsp;</a></span>
-
-                <span class="glyphicon glyphicon-comment"></span>
-                <a href="{{ url_for('main.index', id=post.id) }}#comments">
-                    <span class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></span>
-                    评论&nbsp;&nbsp;
-                </a>
-
-                {% if current_user.is_administrator() %}
-                <span class="glyphicon glyphicon-trash"></span>
-                <a href="{{ url_for('main.index', id=post.id) }}">
-                    <span>删除&nbsp;&nbsp;</span>
-                </a>
-                <span class="glyphicon glyphicon-edit"></span>
-                <a href="{{ url_for('main.edit', permalink=post.permalink) }}">
-                    <span>编辑</span>
-                </a>
-                {% endif %}
-            </p>
-        </div>
+        {% include '_posthead.html' %}
         <div class="post-body">
             {% if post.body_html %}
                 {{ post.body_html | safe }}
@@ -38,7 +9,7 @@
         </div>
 
     <div class="post-footer">
-    <a href="{{ url_for('.index', id=post.id) }}">
+    <a href="{{ url_for('.post', permalink=post.permalink) }}">
         <button type="button" class="btn btn-default">阅读全文</button>
     </a>
     </div>

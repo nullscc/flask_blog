@@ -43,7 +43,7 @@ def post(permalink):
         page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'],
         error_out=False)
     comments = pagination.items
-    return render_template('post.html', posts=[post], form=form,
+    return render_template('post.html', post=post, form=form,
                            comments=comments, pagination=pagination)
 
 @main.route('/new-post', methods=['GET', 'POST'])
