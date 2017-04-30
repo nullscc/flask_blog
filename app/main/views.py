@@ -67,13 +67,15 @@ def edit(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     form = PostForm()
     if form.validate_on_submit():
-        tag = post.tag
+        tag = Tag.query.filter_by(name=form.tag.data).first()
+        if tag is None:
+            tag = Tag(name=form.tag.data)
+            db.session.add(tag)
         post.permalink = form.permalink.data
         post.title = form.title.data
-        tag.name = form.tag.data
         post.body = form.body.data
+        post.tag = tag
         db.session.add(post)
-        db.session.add(tag)
         flash(u'文章编辑成功')
         return redirect(url_for('.post', permalink=post.permalink))
     form.permalink.data = post.permalink
