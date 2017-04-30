@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, flash, request, make_response, abort, current_app
 from . import main
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, TagForm
 from ..email import send_email
 from .. import db
 from ..models import User, Post, Comment, Tag
@@ -42,13 +42,11 @@ def post(permalink):
 @main.route('/new-post', methods=['GET', 'POST'])
 @admin_required
 def new_post():
-    form = PostForm()
+    form = PostForm()    
     if form.validate_on_submit():
-        tag = Tag.query.filter_by(name=form.tag.data).first()
-        if tag is None:
-            tag = Tag(name=form.tag.data)
-            db.session.add(tag)
-        post = Post(body=form.body.data, permalink=form.permalink.data, tag=tag, title=form.title.data)
+        post = Post(body=form.body.data, permalink=form.permalink.data, title=form.title.data)
+        for tag in form.tags.data:
+            post.tags.append(tag)
         db.session.add(post)
         flash(u'发布文章成功！！！')
         return redirect(url_for('.index'))
@@ -60,22 +58,43 @@ def edit(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     form = PostForm()
     if form.validate_on_submit():
-        tag = Tag.query.filter_by(name=form.tag.data).first()
-        if tag is None:
-            tag = Tag(name=form.tag.data)
-            db.session.add(tag)
         post.permalink = form.permalink.data
         post.title = form.title.data
         post.body = form.body.data
-        post.tag = tag
+        post.tags = form.tags.data
         db.session.add(post)
         flash(u'文章编辑成功')
         return redirect(url_for('.post', permalink=post.permalink))
     form.permalink.data = post.permalink
     form.title.data = post.title
-    form.tag.data = post.tag.name
+    form.tags.data = post.tags.all()
     form.body.data = post.body    
     return render_template('edit_post.html', form=form)
+
+@main.route('/tag-manager', methods=['GET', 'POST'])
+@admin_required
+def tag_manager():
+    tagform = TagForm()
+    if tagform.validate_on_submit():
+        tag = Tag(name=tagform.name.data)
+        db.session.add(tag)
+        db.session.commit()
+        flash(u'标签添加成功')
+        return redirect(url_for('.tag_manager'))
+    return render_template('tag_manager.html', form=tagform)
+
+
+@main.route('/tags/<name>', methods=['GET', 'POST'])
+def tag(name):
+    tag = Tag.query.filter_by(name=name).first_or_404()
+    page = request.args.get('page', 1, type=int)
+    pagination = tag.posts.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=10,
+        error_out=False)
+    page_posts = pagination.items
+    print(len(page_posts))
+    return render_template('index.html',
+        pagination=pagination, posts=page_posts)
 
 @main.route('/del-post/<permalink>', methods=['GET', 'POST'])
 @admin_required

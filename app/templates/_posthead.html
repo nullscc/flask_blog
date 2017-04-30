@@ -7,8 +7,10 @@
                 <span class="glyphicon glyphicon-calendar"></span>
                 <span>{{ moment(post.timestamp).format('YYYY/MM/DD') }}&nbsp;&nbsp;</span>
 
-                <span class="glyphicon glyphicon-tag"></span>
-                <span><a href="{{ url_for('main.index', name=post.tag.name) }}">{{ post.tag.name }}&nbsp;&nbsp;</a></span>
+                {% for tag in post.tags.all() %}
+                    <span class="glyphicon glyphicon-tag"></span>
+                    <span><a href="{{ url_for('main.tag', name=tag.name) }}">{{ tag.name }}&nbsp;&nbsp;</a></span>
+                {% endfor %}
 
                 <!--<span class="glyphicon glyphicon-comment"></span>
                 <a href="{{ url_for('main.post', permalink=post.permalink) }}#comments">
