@@ -58,17 +58,25 @@ def new_post():
         return redirect(url_for('.index'))
     return render_template('new_post.html', form=form)
 
-@main.route('/edit/<int:id>', methods=['GET', 'POST'])
+@main.route('/edit/<permalink>', methods=['GET', 'POST'])
 @login_required
-def edit(id):
-    post = Post.query.get_or_404(id)
+def edit(permalink):
+    post = Post.query.filter_by(permalink=permalink).first()
     form = PostForm()
     if form.validate_on_submit():
+        tag = post.tag
+        post.permalink = form.permalink.data
+        post.title = form.title.data
+        tag.name = form.tag.data
         post.body = form.body.data
         db.session.add(post)
-        flash('The post has been updated.')
-        return redirect(url_for('.post', id=post.id))
-    form.body.data = post.body
+        db.session.add(tag)
+        flash(u'文章编辑成功')
+        return redirect(url_for('.post', permalink=post.permalink))
+    form.permalink.data = post.permalink
+    form.title.data = post.title
+    form.tag.data = post.tag.name
+    form.body.data = post.body    
     return render_template('edit_post.html', form=form)
 
 @main.route('/moderate')

@@ -23,7 +23,7 @@
                     <span>删除&nbsp;&nbsp;</span>
                 </a>
                 <span class="glyphicon glyphicon-edit"></span>
-                <a href="{{ url_for('main.index', id=post.id) }}">
+                <a href="{{ url_for('main.edit', permalink=post.permalink) }}">
                     <span>编辑</span>
                 </a>
                 {% endif %}
