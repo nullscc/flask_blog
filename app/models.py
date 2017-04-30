@@ -103,6 +103,8 @@ post_tag_table = db.Table('post_tag_table',
     db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
     db.Column('tag_id', db.Integer, db.ForeignKey('tags.id')))
 
+
+
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
@@ -130,6 +132,14 @@ class Post(db.Model):
                 timestamp=forgery_py.date.date(True))
             db.session.add(p)
             db.session.commit()
+
+    @staticmethod
+    def get_sammary():
+        lines = self.value.split('\n')
+        temp = '\n'.join(lines[:10])
+        bleach.linkify(bleach.clean(
+                    markdown(temp, output_format='html'),
+                    tags=allowed_tags, strip=True))
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
