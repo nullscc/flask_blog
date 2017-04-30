@@ -12,8 +12,8 @@
 
                 <span class="glyphicon glyphicon-comment"></span>
                 <a href="{{ url_for('main.post', permalink=post.permalink) }}#comments">
-                    <span class="ds-thread-count" data-thread-key="{{ post.id }}" data-count-type="comments"></span>
-                    评论&nbsp;&nbsp;
+                    <span class="ds-thread-count" data-thread-key="{{ post.permalink }}" data-count-type="comments"></span>
+                    {{ post.comments.count() }}评论&nbsp;&nbsp;
                 </a>
 
                 {% if current_user.is_administrator() %}
