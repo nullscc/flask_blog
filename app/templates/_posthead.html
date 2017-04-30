@@ -10,11 +10,11 @@
                 <span class="glyphicon glyphicon-tag"></span>
                 <span><a href="{{ url_for('main.index', name=post.tag.name) }}">{{ post.tag.name }}&nbsp;&nbsp;</a></span>
 
-                <span class="glyphicon glyphicon-comment"></span>
+                <!--<span class="glyphicon glyphicon-comment"></span>
                 <a href="{{ url_for('main.post', permalink=post.permalink) }}#comments">
                     <span class="ds-thread-count" data-thread-key="{{ post.permalink }}" data-count-type="comments"></span>
                     {{ post.comments.count() }}评论&nbsp;&nbsp;
-                </a>
+                </a>-->
 
                 {% if current_user.is_administrator() %}
                 <span class="glyphicon glyphicon-trash"></span>

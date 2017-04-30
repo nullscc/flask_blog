@@ -8,6 +8,7 @@ from ..email import send_email
 from .. import db
 from ..models import User, Post, Comment, Tag
 from flask_login import login_required, login_user, current_user, logout_user
+from ..decorators import admin_required
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -39,7 +40,7 @@ def post(permalink):
                            comments=comments, pagination=pagination)
 
 @main.route('/new-post', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
@@ -54,7 +55,7 @@ def new_post():
     return render_template('new_post.html', form=form)
 
 @main.route('/edit/<permalink>', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def edit(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     form = PostForm()
@@ -77,7 +78,7 @@ def edit(permalink):
     return render_template('edit_post.html', form=form)
 
 @main.route('/del-post/<permalink>', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def del_post(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     for comment in post.comments:
