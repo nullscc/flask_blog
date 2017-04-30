@@ -18,7 +18,7 @@
 
                 {% if current_user.is_administrator() %}
                 <span class="glyphicon glyphicon-trash"></span>
-                <a href="{{ url_for('main.index', id=post.id) }}">
+                <a href="{{ url_for('main.del_post', permalink=post.permalink) }}">
                     <span>删除&nbsp;&nbsp;</span>
                 </a>
                 <span class="glyphicon glyphicon-edit"></span>

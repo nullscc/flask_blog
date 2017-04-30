@@ -47,13 +47,16 @@ def post(permalink):
                            comments=comments, pagination=pagination)
 
 @main.route('/new-post', methods=['GET', 'POST'])
+@login_required
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        tag = Tag(name=form.tag.data)
+        tag = Tag.query.filter_by(name=form.tag.data).first()
+        if tag is None:
+            tag = Tag(name=form.tag.data)
+            db.session.add(tag)
         post = Post(body=form.body.data, permalink=form.permalink.data, tag=tag, title=form.title.data)
         db.session.add(post)
-        db.session.add(tag)
         flash(u'发布文章成功！！！')
         return redirect(url_for('.index'))
     return render_template('new_post.html', form=form)
@@ -78,6 +81,16 @@ def edit(permalink):
     form.tag.data = post.tag.name
     form.body.data = post.body    
     return render_template('edit_post.html', form=form)
+
+@main.route('/del-post/<permalink>', methods=['GET', 'POST'])
+@login_required
+def del_post(permalink):
+    post = Post.query.filter_by(permalink=permalink).first()
+    for comment in post.comments:
+        db.session.delete(comment)
+    db.session.delete(post)
+    flash(u'删除文章成功！！！')
+    return redirect(url_for('.index'))
 
 @main.route('/moderate')
 @login_required
