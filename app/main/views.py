@@ -9,13 +9,6 @@ from .. import db
 from ..models import User, Post, Comment, Tag
 from flask_login import login_required, login_user, current_user, logout_user
 
-
-@main.route('/moderator')
-@login_required
-def for_moderators_only():
-    return "For comment moderators!"
-
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
@@ -30,8 +23,7 @@ def post(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(body=form.body.data,
-                          post=post)
+        comment = Comment(body=form.body.data, post=post, email=form.email.data, nickname=form.nickname.data)
         db.session.add(comment)
         flash(u'您的评论已被发表')
         return redirect(url_for('.post', permalink=permalink))
@@ -93,34 +85,3 @@ def del_post(permalink):
     db.session.delete(post)
     flash(u'删除文章成功！！！')
     return redirect(url_for('.index'))
-
-@main.route('/moderate')
-@login_required
-def moderate():
-    page = request.args.get('page', 1, type=int)
-    pagination = Comment.query.order_by(Comment.timestamp.desc()).paginate(
-        page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'],
-        error_out=False)
-    comments = pagination.items
-    return render_template('moderate.html', comments=comments,
-                           pagination=pagination, page=page)
-
-
-@main.route('/moderate/enable/<int:id>')
-@login_required
-def moderate_enable(id):
-    comment = Comment.query.get_or_404(id)
-    comment.disabled = False
-    db.session.add(comment)
-    return redirect(url_for('.moderate',
-                            page=request.args.get('page', 1, type=int)))
-
-
-@main.route('/moderate/disable/<int:id>')
-@login_required
-def moderate_disable(id):
-    comment = Comment.query.get_or_404(id)
-    comment.disabled = True
-    db.session.add(comment)
-    return redirect(url_for('.moderate',
-                            page=request.args.get('page', 1, type=int)))

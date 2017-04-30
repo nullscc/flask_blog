@@ -13,6 +13,8 @@ class PostForm(FlaskForm):
     submit = SubmitField(u'发布')
 
 class CommentForm(FlaskForm):
-    body = StringField(u'', validators=[Required()])
+    email = StringField(u'邮箱', validators=[Required(), Length(1, 64), Email()])
+    nickname = StringField(u'昵称', validators=[Required()])
+    body = StringField(u'评论内容', validators=[Required()])
     submit = SubmitField(u'发表')
 

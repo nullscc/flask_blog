@@ -152,6 +152,8 @@ class Comment(db.Model):
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    email = db.Column(db.String(64), unique=True, index=True)
+    nickname = db.Column(db.String(64))
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):

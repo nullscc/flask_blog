@@ -74,6 +74,23 @@ div.blog-main .post-summary .post-body {
 	padding-top: 60px;
 }
 
+
+ul.comments {
+    list-style-type: none;
+    padding: 0px;
+    margin: 16px 0px 0px 0px;
+}
+ul.comments li.comment {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+ul.comments li.comment:nth-child(1) {
+    border-top: 1px solid #e0e0e0;
+}
+ul.comments li.comment:hover {
+    background-color: #f0f0f0;
+}
+
 div.pagination {
 	width: 100%;
 	text-align: left;
