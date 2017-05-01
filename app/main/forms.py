@@ -11,6 +11,7 @@ def get_tags():
 
 class PostForm(FlaskForm):
     title = StringField(u'标题', validators=[Required()])
+    inhomepage = BooleanField(u'是否在首页显示', default=True)
     permalink = StringField(u'固定链接', validators=[Required()])
     tags = QuerySelectMultipleField(u'标签', validators=[Required()], query_factory=get_tags, get_label='name')
     body = PageDownField(u"正文", validators=[Required()])

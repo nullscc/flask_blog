@@ -13,7 +13,8 @@ from ..decorators import admin_required
 @main.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+    print("---Post.query----", Post.query, Post.query.order_by(Post.timestamp.desc()))
+    pagination = Post.query.filter_by(inhomepage=True).order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
@@ -45,7 +46,7 @@ def post(permalink):
 def new_post():
     form = PostForm()    
     if form.validate_on_submit():
-        post = Post(body=form.body.data, permalink=form.permalink.data, title=form.title.data)
+        post = Post(body=form.body.data, permalink=form.permalink.data, title=form.title.data, inhomepage=form.inhomepage.data)
         for tag in form.tags.data:
             post.tags.append(tag)
         db.session.add(post)
