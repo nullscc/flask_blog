@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, flash, request, make_response, abort, current_app
 from . import main
-from .forms import PostForm, CommentForm, TagForm
+from .forms import PostForm, CommentForm, TagForm, TagDelForm
 from ..email import send_email
 from .. import db
 from ..models import User, Post, Comment, Tag
@@ -75,13 +75,23 @@ def edit(permalink):
 @admin_required
 def tag_manager():
     tagform = TagForm()
+    tagdelform = TagDelForm()
     if tagform.validate_on_submit():
+        if Tag.query.filter_by(name=tagform.name.data).first():
+            flash(u'标签已存在')
+            return redirect(url_for('.tag_manager'))
         tag = Tag(name=tagform.name.data)
         db.session.add(tag)
         db.session.commit()
         flash(u'标签添加成功')
         return redirect(url_for('.tag_manager'))
-    return render_template('tag_manager.html', form=tagform)
+    if tagdelform.validate_on_submit():
+        for tag in tagdelform.tags.data:
+            db.session.delete(tag)
+        db.session.commit()
+        flash(u'标签删除成功')
+        return redirect(url_for('.tag_manager'))
+    return render_template('tag_manager.html', form=tagform, delform=tagdelform)
 
 
 @main.route('/tags/<name>', methods=['GET', 'POST'])

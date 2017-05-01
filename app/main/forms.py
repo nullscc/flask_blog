@@ -26,3 +26,7 @@ class CommentForm(FlaskForm):
 class TagForm(FlaskForm):
     name = StringField(u'标签名称', validators=[Required()])
     submit = SubmitField(u'增加')
+
+class TagDelForm(FlaskForm):
+    tags = QuerySelectMultipleField(u'已有标签', query_factory=get_tags, get_label='name')
+    submit = SubmitField(u'删除')
