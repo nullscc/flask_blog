@@ -90,7 +90,6 @@ def tag_manager():
         flash(u'标签添加成功')
         return redirect(url_for('.tag_manager'))
     if tagdelform.validate_on_submit():
-        print("----删除-----")
         default = u'其他'
         if Tag.query.filter_by(name=default).first() is None:
             defaulttag = Tag(name=default)
@@ -108,7 +107,6 @@ def tag_manager():
         flash(u'标签删除成功')
         return redirect(url_for('.tag_manager'))
     if tagrenameform.validate_on_submit():
-        print("----更名-----", tagrenameform.srcname.data)
         tag = tagrenameform.srcname.data
         if tag:
             tag.name = tagrenameform.desname.data
