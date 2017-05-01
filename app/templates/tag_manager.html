@@ -2,8 +2,6 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
-{% block title %}Flasky{% endblock %}
-
 {% block page_content %}
 <div class="page-header">
     <h1>标签管理</h1>
@@ -11,5 +9,6 @@
 <div>
     {{ wtf.quick_form(form) }}
     {{ wtf.quick_form(delform) }}
+    {{ wtf.quick_form(renameform) }}
 </div>
 {% endblock %}

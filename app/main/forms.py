@@ -4,7 +4,7 @@ from wtforms import StringField, SubmitField, TextAreaField, BooleanField, Selec
 from wtforms.validators import Required, Length, Email, Regexp
 from ..models import User, Tag
 from flask_pagedown.fields import PageDownField
-from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField
+from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField, QuerySelectField
 
 def get_tags():
     return Tag.query.all()
@@ -27,5 +27,10 @@ class TagForm(FlaskForm):
     submit = SubmitField(u'增加')
 
 class TagDelForm(FlaskForm):
-    tags = QuerySelectMultipleField(u'已有标签', query_factory=get_tags, get_label='name')
+    tags = QuerySelectMultipleField(u'已有标签', query_factory=get_tags, get_label='name', validators=[Required()])
     submit = SubmitField(u'删除')
+
+class TagRenameForm(FlaskForm):
+    srcname = QuerySelectField(u'源标签名', query_factory=get_tags, get_label='name')
+    desname = StringField(u'目的标签名', validators=[Required()])
+    submit = SubmitField(u'改名')

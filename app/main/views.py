@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import render_template, session, redirect, url_for, flash, request, make_response, abort, current_app
 from . import main
-from .forms import PostForm, CommentForm, TagForm, TagDelForm
+from .forms import PostForm, CommentForm, TagForm, TagDelForm, TagRenameForm
 from ..email import send_email
 from .. import db
 from ..models import User, Post, Comment, Tag
@@ -26,6 +26,7 @@ def post(permalink):
     if form.validate_on_submit():
         comment = Comment(body=form.body.data, post=post, email=form.email.data, nickname=form.nickname.data)
         db.session.add(comment)
+        db.session.commit()
         flash(u'您的评论已被发表')
         return redirect(url_for('.post', permalink=permalink))
     page = request.args.get('page', 1, type=int)
@@ -48,6 +49,7 @@ def new_post():
         for tag in form.tags.data:
             post.tags.append(tag)
         db.session.add(post)
+        db.session.commit()
         flash(u'发布文章成功！！！')
         return redirect(url_for('.index'))
     return render_template('new_post.html', form=form)
@@ -63,6 +65,7 @@ def edit(permalink):
         post.body = form.body.data
         post.tags = form.tags.data
         db.session.add(post)
+        db.session.commit()
         flash(u'文章编辑成功')
         return redirect(url_for('.post', permalink=post.permalink))
     form.permalink.data = post.permalink
@@ -76,6 +79,7 @@ def edit(permalink):
 def tag_manager():
     tagform = TagForm()
     tagdelform = TagDelForm()
+    tagrenameform = TagRenameForm()
     if tagform.validate_on_submit():
         if Tag.query.filter_by(name=tagform.name.data).first():
             flash(u'标签已存在')
@@ -86,12 +90,35 @@ def tag_manager():
         flash(u'标签添加成功')
         return redirect(url_for('.tag_manager'))
     if tagdelform.validate_on_submit():
+        print("----删除-----")
+        default = u'其他'
+        if Tag.query.filter_by(name=default).first() is None:
+            defaulttag = Tag(name=default)
+            db.session.add(defaulttag)
+        defaulttag = Tag.query.filter_by(name=default).first()
+
         for tag in tagdelform.tags.data:
+            for post in tag.posts:
+                if post.tags.count() == 1:
+                    post.tags.append(defaulttag)
+                post.tags.remove(tag)
+                db.session.add(post)
             db.session.delete(tag)
         db.session.commit()
         flash(u'标签删除成功')
         return redirect(url_for('.tag_manager'))
-    return render_template('tag_manager.html', form=tagform, delform=tagdelform)
+    if tagrenameform.validate_on_submit():
+        print("----更名-----", tagrenameform.srcname.data)
+        tag = tagrenameform.srcname.data
+        if tag:
+            tag.name = tagrenameform.desname.data
+            db.session.add(tag)
+            db.session.commit()
+            flash(u'标签更名成功')
+        else:
+            flash(u'要更名的标签不存在')
+        return redirect(url_for('.tag_manager'))
+    return render_template('tag_manager.html', form=tagform, delform=tagdelform, renameform=tagrenameform)
 
 
 @main.route('/tags/<name>', methods=['GET', 'POST'])
@@ -113,5 +140,6 @@ def del_post(permalink):
     for comment in post.comments:
         db.session.delete(comment)
     db.session.delete(post)
+    db.session.commit()
     flash(u'删除文章成功！！！')
     return redirect(url_for('.index'))
