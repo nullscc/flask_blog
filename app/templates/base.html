@@ -61,8 +61,7 @@
     <div class="col-sm-3 blog-sidebar">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-tags"></span>
-                &nbsp;标签
+                <span class="label label-default"><strong>&nbsp;标签</strong></span>
             </div>
             <div class="panel-body">
                 {% if tags | length >= 50 %}
@@ -70,8 +69,7 @@
                 {% endif %}
                 {% for tag in tags %}
                 <p>
-                    <span class="glyphicon glyphicon-tag"></span>
-                    <a href="{{ url_for('main.tag', name=tag.name) }}">{{ tag.name }}</a> <span class="badge">{{ tag.posts.count() }}</span>
+                    <a href="{{ url_for('main.tag', name=tag.name) }}"><span class="label label-primary">{{ tag.name }}</span></a> <span class="badge">{{ tag.posts.count() }}</span>
                     {% endfor %}
                 </p>
             </div>

@@ -74,6 +74,9 @@ div.blog-main .post-summary .post-body {
 	padding-top: 60px;
 }
 
+div.post-date {
+    float: right;
+}
 
 ul.comments {
     list-style-type: none;
