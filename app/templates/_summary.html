@@ -1,11 +1,13 @@
 <div class="post-summary">
         {% include '_posthead.html' %}
         <div class="post-body">
-            {% set sammary = post.get_sammary%}
-            {% if post.sammary %}
-                {{ post.sammary | safe }}
+            {% set summary = post.get_summary() %}
+            {% if summary %}
+                {{post.get_summary() | safe}}
+            {% elif post.body_html %}
+                {{ post.body_html | safe | truncate(100, True)}}
             {% else %}
-                {{ post.body }}
+                {{ post.body | truncate(100, True)}}
             {% endif %}
         </div>
 

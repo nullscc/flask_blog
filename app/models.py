@@ -46,7 +46,6 @@ class User(UserMixin, db.Model):
         return True
 
     def is_administrator(self):
-        print("self.email == os.environ.get('FLASKY_ADMIN')", self.email, os.environ.get('FLASKY_ADMIN'))
         return self.email == os.environ.get('FLASKY_ADMIN')
 
     @property
@@ -119,6 +118,16 @@ class Post(db.Model):
     backref=db.backref('posts', lazy='dynamic'),
     lazy='dynamic')
 
+    def get_summary(self):
+        lines = self.body.split('\n')
+        temp = '\n'.join(lines[:5])
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+                    'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+                    'h1', 'h2', 'h3', 'p']
+        return bleach.linkify(bleach.clean(
+                    markdown(temp, output_format='html'),
+                    tags=allowed_tags, strip=True))
+
     @staticmethod
     def generate_fake(count=100):
         from random import seed, randint
@@ -132,14 +141,6 @@ class Post(db.Model):
                 timestamp=forgery_py.date.date(True))
             db.session.add(p)
             db.session.commit()
-
-    @staticmethod
-    def get_sammary():
-        lines = self.value.split('\n')
-        temp = '\n'.join(lines[:10])
-        bleach.linkify(bleach.clean(
-                    markdown(temp, output_format='html'),
-                    tags=allowed_tags, strip=True))
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -157,7 +158,6 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), unique=True, index=True, 
         nullable=False)
-    # posts = db.relationship('Post', backref='tag', lazy='dynamic')
 
     def __repr__(self):
         return '<Tag %r>' % self.name
