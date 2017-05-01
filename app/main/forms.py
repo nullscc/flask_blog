@@ -12,9 +12,8 @@ def get_tags():
 class PostForm(FlaskForm):
     title = StringField(u'标题', validators=[Required()])
     permalink = StringField(u'固定链接', validators=[Required()])
-    # tag = StringField(u'标签', validators=[Required()])
-    body = PageDownField(u"正文", validators=[Required()])
     tags = QuerySelectMultipleField(u'标签', query_factory=get_tags, get_label='name')
+    body = PageDownField(u"正文", validators=[Required()])
     submit = SubmitField(u'发布')
 
 class CommentForm(FlaskForm):
