@@ -13,7 +13,6 @@ from ..decorators import admin_required
 @main.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-    print("---Post.query----", Post.query, Post.query.order_by(Post.timestamp.desc()))
     pagination = Post.query.filter_by(inhomepage=True).order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
         error_out=False)
