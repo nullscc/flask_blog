@@ -10,7 +10,7 @@
     -->
     <p class="article-tag">
     标签：
-  {% for tag in tags %}
+  {% for tag in post.tags %}
   <a class="article-category-link" href="/tags/{{tag.name}}">{{tag.name}}</a>
   {% endfor %}
     </p>
