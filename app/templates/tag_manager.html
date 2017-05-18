@@ -3,10 +3,8 @@
 {% import "_macros.html" as macros %}
 
 {% block page_content %}
-<div class="page-header">
+<div id="main">
     <h1>标签管理</h1>
-</div>
-<div>
     {{ wtf.quick_form(form) }}
     {{ wtf.quick_form(delform) }}
     {{ wtf.quick_form(renameform) }}

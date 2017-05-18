@@ -1,8 +1,67 @@
-{% include '_posthead.html' %}
-<div class="post-body">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="{{ url_for('main.index')+'post/'+post.permalink}}" title="{{post.title}}" itemprop="url">{{post.title}}</a>
+  </h1>
+
+  <!--<p class="article-time">
+    <time datetime="2016-12-07T13:09:00.000Z" itemprop="datePublished"> 发表于 2016-12-07</time>
+    -->
+    <p class="article-tag">
+    标签：
+  {% for tag in tags %}
+  <a class="article-category-link" href="/tags/{{tag.name}}">{{tag.name}}</a>
+  {% endfor %}
+    </p>
+    {% if current_user.is_administrator() %}
+    <p class="article-tag">
+    <a href="{{ url_for('main.del_post', permalink=post.permalink) }}">删除</a>
+    </p>
+    <p class="article-tag">
+    <a href="{{ url_for('main.edit', permalink=post.permalink) }}">编辑</a>
+    </p>
+    {% endif %}
+</header>
+	<div class="article-content">
+		
+		<!--<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>-->
+		
     {% if post.body_html %}
         {{ post.body_html | safe }}
     {% else %}
         {{ post.body }}
     {% endif %}
+	</div>
+		<footer class="article-footer clearfix">
+<!--<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  {% for tag in tags %}
+  <a class="article-category-link" href="/tags/{{tag.name}}/">{{tag.name}}</a>
+  {% endfor %}
 </div>
+
+
+</div>-->
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="{{ url_for('main.index')+'post/'+post.permalink}}" data-title="{{post.title}}" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>

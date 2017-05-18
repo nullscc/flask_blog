@@ -1,84 +1,214 @@
-{% extends "bootstrap/base.html" %}
-
-{% block title %}一只特立独行的猪{% endblock %}
 {% set tags = Tag.query.all() %}
-{% block head %}
-{{ super() }}
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-{% endblock %}
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+  
+    <title>一只特立独行的猪</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="null">
+    <meta name="description">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="一只特立独行的猪">
+    <meta property="og:url" content="{{url_for("main.index")}}">
+    <meta property="og:site_name" content="一只特立独行的猪">
+    <meta property="og:description">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="一只特立独行的猪">
+    <meta name="twitter:description">
+    <link rel="alternative" href="/atom.xml" title="一只特立独行的猪" type="application/atom+xml">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 
-{% block navbar %}
-<div class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">一只特立独行的猪</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">主页</a></li>
-                <li><a href="{{ url_for('main.index') }}">关于我</a></li>
-                <li><a href="{{ url_for('main.index') }}">关于此博客</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_administrator() %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ current_user.gravatar(size=18) }}">
-                        Account <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('main.new_post') }}">发表新文章</a></li>
-                        <li><a href="{{ url_for('main.tag_manager') }}">标签管理</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="一只特立独行的猪">一只特立独行的猪</a></h1>
+				<h2 class="blog-motto">金黄色的树林里分出两条路，可惜我们不能同时去涉足，但我们却同时选择了，人迹罕至的那一条，这从此决定了，我们的一生。</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+						<li><a href="/">主页</a></li>
+						<li><a href="/about">关于</a></li>
+					<li>
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:{{url_for("main.index")}}">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>
+      {% if current_user.is_administrator() %}
+        <ul class="nav-right">
+            <li class="drop-down">&nbsp;
+                <ul class="drop-down-content">
+                      <li><a href="{{ url_for('main.new_post') }}">发表新文章</a></li>
+                      <li><a href="{{ url_for('main.tag_manager') }}">标签管理</a></li>
+                      <li><a href="{{ url_for('auth.logout') }}">登出</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
 </div>
-{% endblock %}
+    </header>
+    <div id="container">
 
-{% block content %}
-<div class="container">
-    <div class="col-sm-9 blog-main">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% block page_content %}{% endblock %}
-    </div>
-    <div class="col-sm-3 blog-sidebar">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span class="label label-default"><strong>&nbsp;标签</strong></span>
-            </div>
-            <div class="panel-body">
-                {% if tags | length >= 50 %}
-                {% set tags = tags[:50] %}
-                {% endif %}
-                {% for tag in tags %}
-                <p>
-                    <a href="{{ url_for('main.tag', name=tag.name) }}"><span class="label label-primary">{{ tag.name }}</span></a> <span class="badge">{{ tag.posts.count() }}</span>
-                    {% endfor %}
-                </p>
-            </div>
-        </div>
-    </div>
+{% block page_content %}{% endblock %}
+
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">标签</p>
+		<ul>
+		  {% for tag in tags %}
+			<li><a href="{{ url_for('main.tag', name=tag.name) }}" title="{{ tag.name }}">{{ tag.name }}<sup>{{tag.posts.count()}}</sup></a></li>
+		  {% endfor %}
+		</ul>
 </div>
-{% endblock %}
 
-{% block scripts %}
-{{ super() }}
-{{ moment.include_moment() }}
-{% endblock %}
+
+  <!--<div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+          <li>    
+            	<a href="http://kittycookie.clawz.me" target="_blank" title="三癫那">三癫</a>
+          </li>
+          <li>
+            	<a href="http://blog.csdn.net/taurance" target="_blank" title="好基友 PY 哥">PY 哥</a>
+          </li>
+        
+    </ul>
+</div>-->
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		<!--Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="三疯">三疯</a>-->
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+<script src="{{ url_for('static', filename='gallery.js') }}"></script>
+<script src="http://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<!-- Analytics Begin -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?xxxxxxxxxxxxxxxx";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="{{ url_for('static', filename='scrollup.png') }}"/></a>
+	</div>
+	<script src="{{ url_for('static', filename='totop.js') }}"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

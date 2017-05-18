@@ -7,7 +7,7 @@ from ..models import User
 class LoginForm(FlaskForm):
     email = StringField(u'邮箱', validators=[Required(), Length(1, 64), Email()])
     password = PasswordField(u'密码', validators=[Required()])
-    remember_me = BooleanField(u'保持登录')
+    remember_me = BooleanField(u'保持登录', default=True)
     submit = SubmitField(u'登录')
 
 class RegistrationForm(FlaskForm):

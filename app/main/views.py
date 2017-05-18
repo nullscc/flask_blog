@@ -19,7 +19,7 @@ def index():
     posts = pagination.items
     return render_template('index.html', posts=posts, pagination=pagination)
 
-@main.route('/<permalink>', methods=['GET', 'POST'])
+@main.route('/post/<permalink>', methods=['GET', 'POST'])
 def post(permalink):
     post = Post.query.filter_by(permalink=permalink).first()
     form = CommentForm()
@@ -54,7 +54,7 @@ def new_post():
         return redirect(url_for('.index'))
     return render_template('new_post.html', form=form)
 
-@main.route('/edit/<permalink>', methods=['GET', 'POST'])
+@main.route('/edit/post/<permalink>', methods=['GET', 'POST'])
 @admin_required
 def edit(permalink):
     post = Post.query.filter_by(permalink=permalink).first()

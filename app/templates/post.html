@@ -5,15 +5,17 @@
 {% block title %}Flasky - Post{% endblock %}
 
 {% block page_content %}
+<div id="main" class="post" itemscope itemprop="blogPost">
 {% include '_post.html' %}
+</div>
 <!--{% include '_comments.html' %}-->
 <!--<div class="comment-form">
 <h4 id="comments">评论</h4>
     {{ wtf.quick_form(form) }}
 </div>-->
-{% if pagination %}
+<!--{% if pagination %}
 <div class="pagination">
     {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=post.id) }}
 </div>
-{% endif %}
+{% endif %}-->
 {% endblock %}

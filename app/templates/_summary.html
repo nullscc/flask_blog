@@ -1,19 +1,17 @@
-<div class="post-summary">
-        {% include '_posthead.html' %}
-        <div class="post-body">
-            {% set summary = post.get_summary() %}
-            {% if summary %}
-                {{post.get_summary() | safe}}
-            {% elif post.body_html %}
-                {{ post.body_html | safe | truncate(100, True)}}
-            {% else %}
-                {{ post.body | truncate(100, True)}}
-            {% endif %}
-        </div>
-
-    <div class="post-footer">
-    <a href="{{ url_for('.post', permalink=post.permalink) }}">
-        <button type="button" class="btn btn-default">阅读全文</button>
-    </a>
-    </div>
-</div>
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="{{ url_for('main.index')+'post/'+post.permalink}}" title="{{ post.title }}" itemprop="url">
+  
+    <h1 itemprop="name">{{ post.title }}</h1>    
+        <p itemprop="description" >
+        {% set summary = post.get_summary() %}
+        {% if summary %}
+            {{post.get_summary() | safe}}
+        {% elif post.body_html %}
+            {{ post.body_html | safe | truncate(100, True)}}
+        {% else %}
+            {{ post.body | truncate(100, True)}}
+        {% endif %}
+        </p>
+  </a>
+</section>
