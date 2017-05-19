@@ -36,14 +36,14 @@ a img {
 	border: none
 }/* custom Font*/
 @font-face {
-	font-family:"covered_by_your_graceregular";font-weight:normal;font-style:normal;src:url("../font/coveredbyyourgrace-webfont.eot");src:url("../font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'),url("../font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg'),url("../font/coveredbyyourgrace-webfont.woff") format('woff'),url("../font/coveredbyyourgrace-webfont.ttf") format('truetype')
+	font-family:"covered_by_your_graceregular";font-weight:normal;font-style:normal;src:url("font/coveredbyyourgrace-webfont.eot");src:url("font/coveredbyyourgrace-webfont.eot?#iefix") format('embedded-opentype'),url("font/coveredbyyourgrace-webfont.svg#covered_by_your_graceregular") format('svg'),url("font/coveredbyyourgrace-webfont.woff") format('woff'),url("font/coveredbyyourgrace-webfont.ttf") format('truetype')
 }/* icon Font */
 @font-face {
-	font-family:"FontAwesome";font-style:normal;font-weight:normal;src:url("../font/fontawesome-webfont.eot?v=#4.0.3");src:url("../font/fontawesome-webfont.eot?#iefix&v=#4.0.3") format("embedded-opentype"),url("../font/fontawesome-webfont.woff?v=#4.0.3") format("woff"),url("../font/fontawesome-webfont.ttf?v=#4.0.3") format("truetype"),url("../font/fontawesome-webfont.svg#fontawesomeregular?v=#4.0.3") format("svg")
+	font-family:"FontAwesome";font-style:normal;font-weight:normal;src:url("font/fontawesome-webfont.eot?v=#4.0.3");src:url("font/fontawesome-webfont.eot?#iefix&v=#4.0.3") format("embedded-opentype"),url("font/fontawesome-webfont.woff?v=#4.0.3") format("woff"),url("font/fontawesome-webfont.ttf?v=#4.0.3") format("truetype"),url("font/fontawesome-webfont.svg#fontawesomeregular?v=#4.0.3") format("svg")
 }
 
 @font-face {
-	font-family:"fontdiao";font-weight:normal;font-style:normal;src:url("../font/fontdiao.eot");src:url("../font/fontdiao.eot?#iefix") format('embedded-opentype'),url("../font/fontdiao.svg#fontdiao") format('svg'),url("../font/fontdiao.woff") format('woff'),url("../font/fontdiao.ttf") format('truetype')
+	font-family:"fontdiao";font-weight:normal;font-style:normal;src:url("font/fontdiao.eot");src:url("font/fontdiao.eot?#iefix") format('embedded-opentype'),url("font/fontdiao.svg#fontdiao") format('svg'),url("font/fontdiao.woff") format('woff'),url("font/fontdiao.ttf") format('truetype')
 }/* Public style */
 * {
 	-webkit-margin-before: 0;
