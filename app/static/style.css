@@ -964,7 +964,7 @@ article header.article-info >p.article-author {
 
 
 article header.article-info >p.article-tag {
-	padding: .3em 4% .3em 0;
+	padding: 0;
 	text-align: right;
 	border-bottom: 1px solid #dbdbdb;
 }
@@ -975,6 +975,37 @@ article header.article-info >p.article-tag {
 		border-bottom: none
 	}
 }
+
+article header.article-info >p.article-tag:before {
+	font-family: "FontAwesome";
+	font-size: 100%;
+	content: "\f02c";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+article header.article-info >p.article-admin {
+	padding: 0;
+	text-align: right;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+@media only screen and (min-width:768px) {
+	article header.article-info >p.article-admin {
+		float: right;
+		border-bottom: none
+	}
+}
+
+article header.article-info >p.article-admin:before {
+	font-family: "FontAwesome";
+	font-size: 100%;
+	content: "\f007";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+
 
 article header.article-info >p.article-item {
 	padding-top: .5em;
@@ -1510,7 +1541,7 @@ footer.article-footer {
 
 .article-category-link {
 	padding: .5em;
-	margin: 0 .3em;
+	margin: 0;
 }
 
 .article-category-link:hover {
