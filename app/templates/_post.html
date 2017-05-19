@@ -8,19 +8,17 @@
   <!--<p class="article-time">
     <time datetime="2016-12-07T13:09:00.000Z" itemprop="datePublished"> 发表于 2016-12-07</time>
     -->
-    <p class="article-tag" class="article-category-link">
+    <p class="article-tag">
   {% for tag in post.tags %}
   <a class="article-category-link" href="/tags/{{tag.name}}">{{tag.name}}</a>
   {% endfor %}
     </p>
-    {% if current_user.is_administrator() %}
     <p class="article-admin">
     <a href="{{ url_for('main.del_post', permalink=post.permalink) }}">删除</a>
     </p>
     <p class="article-admin">
     <a href="{{ url_for('main.edit', permalink=post.permalink) }}">编辑</a>
     </p>
-    {% endif %}
 </header>
 	<div class="article-content">
 		

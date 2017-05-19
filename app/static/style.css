@@ -985,7 +985,7 @@ article header.article-info >p.article-tag:before {
 }
 
 article header.article-info >p.article-admin {
-	padding: 0;
+	padding: 0 .5em;
 	text-align: right;
 	border-bottom: 1px solid #dbdbdb;
 }
@@ -998,6 +998,7 @@ article header.article-info >p.article-admin {
 }
 
 article header.article-info >p.article-admin:before {
+	color: red;
 	font-family: "FontAwesome";
 	font-size: 100%;
 	content: "\f007";
