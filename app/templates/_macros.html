@@ -1,32 +1,44 @@
 {% macro pagination_widget(pagination, endpoint, fragment='') %}
 {% if pagination.pages > 1 %}
-<ul class="pagination">
-    <li{% if not pagination.has_prev %} class="disabled"{% endif %}>
-        <a href="{% if pagination.has_prev %}{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
-            &laquo;
-        </a>
-    </li>
-
+<nav id="page-nav" class="clearfix unexpand">
+    {% if pagination.has_prev %}
+        <a class="extend prev" rel="prev" href="{{ url_for(endpoint, page=pagination.prev_num, **kwargs) }}"><span></span>Prev</a>
+    {% endif %}
+    {% if pagination.pages < 6 %}
         {% for p in pagination.iter_pages() %}
             {% if p %}
                 {% if p == pagination.page %}
-                <li class="active">
-                    <a href="{{ url_for(endpoint, page = p, **kwargs) }}{{ fragment }}">{{ p }}</a>
-                </li>
+                <span class="page-number current">{{ p }}</span>
                 {% else %}
-                <li>
-                    <a href="{{ url_for(endpoint, page = p, **kwargs) }}{{ fragment }}">{{ p }}</a>
-                </li>
+                <a class="page-number" href="{{ url_for(endpoint, page = p, **kwargs) }}">{{ p }}</a>
                 {% endif %}
-            {% else %}
-            <li class="disabled"><a href="#">&hellip;</a></li>
             {% endif %}
         {% endfor %}
-    <li{% if not pagination.has_next %} class="disabled"{% endif %}>
-        <a href="{% if pagination.has_next %}{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
-            &raquo;
-        </a>
-    </li>
-</ul>
+    {% else %}
+        {% for p in pagination.iter_pages() %}
+            {% if p %}
+                {% if p >= pagination.page %}
+                {% set absp = p - pagination.page %}
+                {% else %}
+                {% set absp = pagination.page - p %}
+                {% endif %}    
+                {% if p == pagination.page %}
+                <span class="page-number current">{{ p }}</span>
+                
+                {% elif absp > 3 %}
+
+                {% elif absp == 3 %}
+                <span class="space">&hellip;</span>
+                {% else %}
+                <a class="page-number" href="{{ url_for(endpoint, page = p, **kwargs) }}">{{ p }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if pagination.has_next %}
+    <a class="extend next" rel="next" href="{{ url_for(endpoint, page=pagination.next_num, **kwargs) }}">Next<span></span></a>
+    {% endif %}
+</nav>
 {% endif %}
+
 {% endmacro %}
