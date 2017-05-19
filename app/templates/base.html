@@ -20,6 +20,8 @@
     <link rel="alternative" href="/atom.xml" title="一只特立独行的猪" type="application/atom+xml">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+
 </head>
 
   <body>
@@ -197,7 +199,8 @@ var _hmt = _hmt || [];
 	<a title="返回顶部"><img src="{{ url_for('static', filename='scrollup.png') }}"/></a>
 	</div>
 	<script src="{{ url_for('static', filename='totop.js') }}"></script>
-
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 <!-- Totop End -->
 
 <!-- MathJax Begin -->
