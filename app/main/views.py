@@ -119,7 +119,7 @@ def tag_manager():
     return render_template('tag_manager.html', form=tagform, delform=tagdelform, renameform=tagrenameform)
 
 
-@main.route('/tags/<name>', methods=['GET', 'POST'])
+@main.route('/tags/<name>/', methods=['GET', 'POST'])
 def tag(name):
     tag = Tag.query.filter_by(name=name).first_or_404()
     page = request.args.get('page', 1, type=int)
