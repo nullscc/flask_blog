@@ -631,7 +631,7 @@ header nav ul li a:hover {
 	-o-transition: border-left 0.45s;
 	-ms-transition: border-left 0.45s;
 	transition: border-left 0.45s;
-	padding: .5em;
+	padding: 1em;
 }
 
 #main section.post:hover {
