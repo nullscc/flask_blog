@@ -3,15 +3,13 @@
     <a href="{{ url_for('main.index')+'post/'+post.permalink}}" class="summary" title="{{ post.title }}" itemprop="url">
   
     <h1 itemprop="name">{{ post.title }}</h1>    
-        <!--<p itemprop="description" >
+        <!--</p>-->
+  </a>
+      
+        <!--<p itemprop="description" >-->
         {% set summary = post.get_summary() %}
         {% if summary %}
-            {{post.get_summary() | safe}}
-        {% elif post.body_html %}
-            {{ post.body_html | safe | truncate(100, True)}}
-        {% else %}
-            {{ post.body | truncate(100, True)}}
+            {{summary | safe}}
+
         {% endif %}
-        </p>-->
-  </a>
 </section>
