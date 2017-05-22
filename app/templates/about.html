@@ -27,7 +27,115 @@
 
 
 {% block escript %}
-	<style>.will_rotate{width:150px;height:150px;margin:0 350px;position:relative}.rotate_parent,.rotate_parent li{position:absolute;display:block}.rotate_parent{position:absolute;display:block;width:100%;height:100%;padding:0;-webkit-transform-origin:50px 50px;transform-origin:50px 50px;-webkit-transform:rotateX(-33.5deg) rotateY(45deg);transform:rotateX(-33.5deg) rotateY(45deg);-webkit-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-animation:willRotate 3s ease-in-out infinite 2s;animation:willRotate 3s ease-in-out infinite alternate;top:20%}.rotate_parent .tip_back,.rotate_parent .tip_front,.rotate_parent .tip_left,.rotate_parent .tip_right,.rotate_parent .tip_top{background:radial-gradient(transparent 30%,rgba(126,17,91,.2) 100%)}.rotate_parent li{width:100px;height:100px;transition:-webkit-transform 1s ease-in-out;transition:transform 1s ease-in-out}.rotate_parent .tip_front{-webkit-transform:translateZ(50px);transform:translateZ(50px)}.rotate_parent .tip_back{-webkit-transform:translateZ(-50px);transform:translateZ(-50px)}.rotate_parent .tip_right{-webkit-transform:rotateY(90deg) translateZ(50px);transform:rotateY(90deg) translateZ(50px)}.rotate_parent .tip_left{-webkit-transform:rotateY(90deg) translateZ(-50px);transform:rotateY(90deg) translateZ(-50px)}.rotate_parent .tip_top{-webkit-transform:rotateX(90deg) translateZ(50px);transform:rotateX(90deg) translateZ(50px)}.rotate_parent .tip_bottom{-webkit-transform:rotateX(90deg) translateZ(-50px);transform:rotateX(90deg) translateZ(-50px)}.rotate_parent .tip_floor{box-shadow:-300px 0 50px rgba(0,0,0,.3);-webkit-backface-visibility:visible;backface-visibility:visible;width:110px;height:110px;left:295px;background-color:transparent;-webkit-transform:rotateX(90deg) translateZ(-60px);transform:rotateX(90deg) translateZ(-60px)}@-webkit-keyframes willRotate{0%{transform:rotateX(-33.5deg) rotateY(45deg)}50%{transform:rotateX(-33.5deg) rotateY(180deg)}100%{transform:rotateX(-33.5deg) rotateY(360deg)}}@keyframes willRotate{0%{transform:rotateX(-33.5deg) rotateY(45deg)}50%{transform:rotateX(-33.5deg) rotateY(180deg)}100%{transform:rotateX(-33.5deg) rotateY(360deg)}}</style>
+<style>.will_rotate {
+	width: 150px;
+	height: 150px;
+	margin: 0 1em;
+	position: relative
+}
+
+.rotate_parent,.rotate_parent li {
+	position: absolute;
+	display: block
+}
+
+.rotate_parent {
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	-webkit-transform-origin: 50px 50px;
+	transform-origin: 50px 50px;
+	-webkit-transform: rotateX(-33.5deg) rotateY(45deg);
+	transform: rotateX(-33.5deg) rotateY(45deg);
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-animation: willRotate 3s ease-in-out infinite 2s;
+	animation: willRotate 3s ease-in-out infinite alternate;
+	top: 20%
+}
+
+.rotate_parent .tip_back,.rotate_parent .tip_front,.rotate_parent .tip_left,.rotate_parent .tip_right,.rotate_parent .tip_top {
+	background: radial-gradient(transparent 30%,rgba(126,17,91,.2) 100%)
+}
+
+.rotate_parent li {
+	width: 100px;
+	height: 100px;
+	transition: -webkit-transform 1s ease-in-out;
+	transition: transform 1s ease-in-out
+}
+
+.rotate_parent .tip_front {
+	-webkit-transform: translateZ(50px);
+	transform: translateZ(50px)
+}
+
+.rotate_parent .tip_back {
+	-webkit-transform: translateZ(-50px);
+	transform: translateZ(-50px)
+}
+
+.rotate_parent .tip_right {
+	-webkit-transform: rotateY(90deg) translateZ(50px);
+	transform: rotateY(90deg) translateZ(50px)
+}
+
+.rotate_parent .tip_left {
+	-webkit-transform: rotateY(90deg) translateZ(-50px);
+	transform: rotateY(90deg) translateZ(-50px)
+}
+
+.rotate_parent .tip_top {
+	-webkit-transform: rotateX(90deg) translateZ(50px);
+	transform: rotateX(90deg) translateZ(50px)
+}
+
+.rotate_parent .tip_bottom {
+	-webkit-transform: rotateX(90deg) translateZ(-50px);
+	transform: rotateX(90deg) translateZ(-50px)
+}
+
+.rotate_parent .tip_floor {
+	box-shadow: -300px 0 50px rgba(0,0,0,.3);
+	-webkit-backface-visibility: visible;
+	backface-visibility: visible;
+	width: 110px;
+	height: 110px;
+	left: 295px;
+	background-color: transparent;
+	-webkit-transform: rotateX(90deg) translateZ(-60px);
+	transform: rotateX(90deg) translateZ(-60px)
+}
+
+@-webkit-keyframes willRotate {
+	0% {
+		transform: rotateX(-33.5deg) rotateY(45deg)
+	}
+
+	50% {
+		transform: rotateX(-33.5deg) rotateY(180deg)
+	}
+
+	100% {
+		transform: rotateX(-33.5deg) rotateY(360deg)
+	}
+}
+
+@keyframes willRotate {
+	0% {
+		transform: rotateX(-33.5deg) rotateY(45deg)
+	}
+
+	50% {
+		transform: rotateX(-33.5deg) rotateY(180deg)
+	}
+
+	100% {
+		transform: rotateX(-33.5deg) rotateY(360deg)
+	}
+}</style>
 	<script src="{{ url_for('static', filename='lazyload.js') }}"></script>
     <script>(function(){window.TypechoComment={dom:function(id){return document.getElementById(id)},create:function(tag,attr){var el=document.createElement(tag);for(var key in attr){el.setAttribute(key,attr[key])}return el},reply:function(cid,coid){var comment=this.dom(cid),parent=comment.parentNode,response=this.dom('respond-page-142'),input=this.dom('comment-parent'),form='form'==response.tagName?response:response.getElementsByTagName('form')[0],textarea=response.getElementsByTagName('textarea')[0];if(null==input){input=this.create('input',{'type':'hidden','name':'parent','id':'comment-parent'});form.appendChild(input)}input.setAttribute('value',coid);if(null==this.dom('comment-form-place-holder')){var holder=this.create('div',{'id':'comment-form-place-holder'});response.parentNode.insertBefore(holder,response)}comment.appendChild(response);this.dom('cancel-comment-reply-link').style.display='';if(null!=textarea&&'text'==textarea.name){textarea.focus()}return false},cancelReply:function(){var response=this.dom('respond-page-142'),holder=this.dom('comment-form-place-holder'),input=this.dom('comment-parent');if(null!=input){input.parentNode.removeChild(input)}if(null==holder){return true}this.dom('cancel-comment-reply-link').style.display='none';holder.parentNode.insertBefore(response,holder);return false}}})();</script>
 	<script>var defaultEncoding=2;var translateDelay=0;var cookieDomain="{{ url_for('main.index') }}";var msgToTraditionalChinese="&#xe634;";var msgToSimplifiedChinese="&#xe62e;";var translateButtonId="translate";translateInitilization();</script>
