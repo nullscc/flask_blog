@@ -141,3 +141,8 @@ def del_post(permalink):
     db.session.commit()
     flash(u'删除文章成功！！！')
     return redirect(url_for('.index'))
+
+
+@main.route('/about')
+def about():
+    return render_template('about.html')
