@@ -128,6 +128,9 @@ class Post(db.Model):
                     'h1', 'h2', 'h3', 'p']
         return markdown(temp, output_format='html')
 
+    def get_date(self):
+        return self.timestamp
+
     @staticmethod
     def generate_fake(count=100):
         from random import seed, randint

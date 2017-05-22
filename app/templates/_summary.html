@@ -12,4 +12,6 @@
             {{summary | safe}}
 
         {% endif %}
+        <time datetime="{{post.get_date()}}" itemprop="datePublished">{{post.get_date()}}</time>
+        
 </section>

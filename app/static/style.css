@@ -638,44 +638,12 @@ header nav ul li a:hover {
 	border-left: .5em solid #2ca6cb
 }
 
-/*
-#main section.post a {
-	display: block;
-	border-left: .5em solid #ccc;
-	-webkit-transition: border-left 0.45s;
-	-moz-transition: border-left 0.45s;
-	-o-transition: border-left 0.45s;
-	-ms-transition: border-left 0.45s;
-	transition: border-left 0.45s;
-	padding: .5em;
-}
-
-@media only screen and (min-width:768px) {
-	#main section.post a {
-		padding: 1em
-	}
-}
-
-#main section.post a:hover {
-	border-left: .5em solid #2ca6cb
-}
-
-#main section.post a h1 {
-	color: #2ca6cb;
-	line-height: 2
-}
-
-#main section.post a p {
-	color: #817c7c
-}
-
-#main section.post a time {
+#main section.post time {
 	color: #817c7c;
 	display: block;
 	margin: .5em 0;
 	font-size: .9em
-}*/
-
+}
 #main article.post-expand {
 	background: #fafafa;
 	margin-bottom: 3.5em;
@@ -1046,7 +1014,7 @@ article header.article-info >p.article-time {
 
 @media only screen and (min-width:768px) {
 	article header.article-info >p.article-time {
-		float: right;
+		float: left;
 		margin-right: 1em;
 		padding-top: .1em;
 		font-size: .9em
@@ -1056,6 +1024,7 @@ article header.article-info >p.article-time {
 article header.article-info >p.article-time:before {
 	font-family: "FontAwesome";
 	font-size: 130%;
+	margin-left: .5em;
 	content: "\f017";
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale

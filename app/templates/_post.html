@@ -18,6 +18,10 @@
     <a href="{{ url_for('main.edit', permalink=post.permalink) }}">编辑</a>
     </p>
     {% endif %}
+  <p class="article-time">
+    <time datetime="{{ post.get_date() }}" itemprop="datePublished"> 发表于 {{ post.get_date() }}</time>
+    
+  </p>
 </header>
 	<div class="article-content">
 		
