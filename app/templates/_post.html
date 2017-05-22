@@ -21,18 +21,19 @@
 </header>
 	<div class="article-content">
 		
-		<!--<div id="toc" class="toc-article">
+		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
 			
 		
-		</div>-->
-		
+		</div>
+	<div id="tpost">
     {% if post.body_html %}
         {{ post.body_html | safe }}
     {% else %}
         {{ post.body }}
     {% endif %}
+    </div>
 	</div>
 		<footer class="article-footer clearfix">
 
@@ -48,3 +49,6 @@
 
    	       
 	</article>
+
+
+</script>

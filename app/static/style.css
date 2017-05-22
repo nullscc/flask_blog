@@ -1659,7 +1659,10 @@ section.comment {
 	margin: 1em 0
 }
 
-.toc-article {
+#toc {
+	line-height: 1.3em;
+	font-size: .8em;
+	float: right;
 	background: #eee;
 	margin: 1.6em 0 0 2em;
 	padding: 1em;
@@ -1669,43 +1672,42 @@ section.comment {
 	border: 1px solid #ddd;
 }
 
-.toc-article strong {
-	padding: .3em 0
-}
 
-.toc-article ul li {
-	list-style: disc;
-	text-align: match-parent;
-	margin: .5em 0
-}
-
-.toc-article ol li {
-	list-style-type: decimal;
-	margin: .5em 0
-}
-
-#toc {
+#toc2 {
 	line-height: 1.3em;
 	font-size: .8em;
-	float: right;
+	background: #eee;
+	margin: 1.6em 0 0 2em;
+	padding: 1em;
+	-webkit-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
 }
 
-#toc .toc {
-	padding: 0;
+@media only screen and (min-width:768px) {
+	#toc2.toc-aside ul {
+		padding-left: 1.5em
+	}
 }
 
-#toc .toc li {
-	list-style-type: none
+#toc2.toc-aside ul li {
+	list-style: disc;
+	text-align: match-parent
 }
 
-#toc .toc-child {
-	padding-left: 1.5em;
-	padding-top: 0
+#toc2.toc-aside a {
+	color: #0090ff;
 }
 
-#toc.toc-aside {
+#toc2.toc-aside a:hover {
+	color: #00f;
+}
+
+#toc2.toc-aside {
 	display: none;
 	width: 13%;
+
 	position: fixed;
 	right: 2%;
 	top: 320px;
@@ -1721,39 +1723,6 @@ section.comment {
 	-o-transition: opacity 1s ease-out;
 	-ms-transition: opacity 1s ease-out;
 	transition: opacity 1s ease-out;
-}
-
-#toc.toc-aside strong {
-	padding: .3em 0;
-	color: #817c7c
-}
-
-#toc.toc-aside:hover {
-	-webkit-transition: opacity 0.3s ease-out;
-	-moz-transition: opacity 0.3s ease-out;
-	-o-transition: opacity 0.3s ease-out;
-	-ms-transition: opacity 0.3s ease-out;
-	transition: opacity 0.3s ease-out;
-	opacity: 1;
-	-ms-filter: none;
-	filter: none
-}
-
-#toc.toc-aside a {
-	-webkit-transition: color 1s ease-out;
-	-moz-transition: color 1s ease-out;
-	-o-transition: color 1s ease-out;
-	-ms-transition: color 1s ease-out;
-	transition: color 1s ease-out;
-}
-
-#toc.toc-aside a:hover {
-	color: #2ca6cb;
-	-webkit-transition: color 0.3s ease-out;
-	-moz-transition: color 0.3s ease-out;
-	-o-transition: color 0.3s ease-out;
-	-ms-transition: color 0.3s ease-out;
-	transition: color 0.3s ease-out
 }
 
 .active {
