@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% import "_macros.html" as macros %}
-
 {% block page_content %}
-<div id="main">
+<div id="main" class="post" itemscope itemprop="blogPost">
     <h1>标签管理</h1>
     {{ wtf.quick_form(form) }}
     {{ wtf.quick_form(delform) }}
