@@ -1681,8 +1681,6 @@ section.comment {
 	right: 2%;
 	top: 320px;
 	overflow: hidden;
-	line-height: 1.5em;
-	font-size: 1em;
 	color: #333;
 	opacity: .6;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
